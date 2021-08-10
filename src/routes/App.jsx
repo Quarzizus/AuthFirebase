@@ -1,10 +1,14 @@
 import React from "react";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
+import Auth from "../components/Auth";
 
 const App = () => {
   return (
-    <div>
-      <h1>Soy App</h1>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Auth} />
+      </Switch>
+    </BrowserRouter>
   );
 };
 
