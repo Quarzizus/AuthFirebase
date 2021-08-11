@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import firebase from "firebase";
+import { useUser, useAuth } from "reactfire";
 import "firebase/auth";
-import { useFirebaseApp, useUser } from "reactfire";
+
 import "../styles/Auth.scss";
 
 const Auth = () => {
-  const firebase = useFirebaseApp();
   const user = useUser();
+  const auth = useAuth();
   const [form, setForm] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
@@ -15,19 +17,21 @@ const Auth = () => {
     });
   };
   const logOut = async () => {
-    await firebase.auth().signOut();
+    await auth.signOut();
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await firebase
-      .auth()
-      .createUserWithEmailAndPassword(form.email, form.password);
+    await auth.createUserWithEmailAndPassword(form.email, form.password);
   };
   const logIn = async (e) => {
     e.preventDefault();
-    await firebase.auth().signInWithEmailAndPassword(form.email, form.password);
+    await auth.signInWithEmailAndPassword(form.email, form.password);
   };
-
+  const handleGoogleSubmit = (e) => {
+    e.preventDefault();
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider);
+  };
   if (!user.data) {
     return (
       <form>
@@ -42,6 +46,7 @@ const Auth = () => {
         />
         <button onClick={logIn}>Iniciar sección</button>
         <button onClick={handleSubmit}>Registrarse</button>
+        <button onClick={handleGoogleSubmit}>Google</button>
       </form>
     );
   } else {

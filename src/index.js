@@ -6,7 +6,7 @@ import firebaseConfig from "./firebaseConfig";
 
 ReactDOM.render(
   <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-    <Suspense fallback={"Holiwi"}>
+    <Suspense fallback="Holiwi">
       <App />
     </Suspense>
   </FirebaseAppProvider>,
