@@ -30,7 +30,12 @@ const Auth = () => {
   const handleGoogleSubmit = (e) => {
     e.preventDefault();
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider);
+    auth.signInWithPopup(provider);
+  };
+  const handleGithubSubmit = (e) => {
+    e.preventDefault();
+    const provider = new firebase.auth.GithubAuthProvider();
+    auth.signInWithPopup(provider);
   };
   if (!user.data) {
     return (
@@ -47,6 +52,7 @@ const Auth = () => {
         <button onClick={logIn}>Iniciar sección</button>
         <button onClick={handleSubmit}>Registrarse</button>
         <button onClick={handleGoogleSubmit}>Google</button>
+        <button onClick={handleGithubSubmit}>Github</button>
       </form>
     );
   } else {
